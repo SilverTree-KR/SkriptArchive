@@ -2,7 +2,6 @@ options:
 	url: https://raw.githubusercontent.com/SilverTree-KR/SkriptArchive/main/versions.txt
 	version: 1.0
 	prefixGit: ArchiveManagement
-	prefixInGame: &0&l[ &5&lAM &0&l]
 
 function checkScriptVersion(name: string, version: string) :: boolean:
 	send message "[{@prefixGit}] Checking the versions of the skript from skript archive..." to console
@@ -17,11 +16,23 @@ function checkScriptVersion(name: string, version: string) :: boolean:
 			else:
 				send message "[{@prefixGit}] &c%{_name}% is currently the old version." to console
 				send message "[{@prefixGit}] Current Version: &c%{_version}% &rLatest Version: &a%{_result::2}%" to console
+				updateScript({_name}, {_result::2})
 				return false
 
-# function updateScript(name: string, version: string):
-# 	if checkScriptVersion({_name}, {_version}) is false:
-# 		stop
-# 	# Logic
+function updateScript(name: string, version: string):
+	if checkScriptVersion({_name}, {_version}) is true:
+		stop
+	set {_script} to "SkriptArchive/%{_name}%"
+	disable script {_script}
+	set {_file} to "plugins/Skript/scripts/SkriptArchive/%{_name}%.sk"
+	download file from "https://raw.githubusercontent.com/SilverTree-KR/SkriptArchive/main/SkriptArchive/%{_name}%.sk" to file {_file}
+	if file existance of {_file} is false:
+		send message "[{@prefixGit}] Unexpected Error Ocurred while downloading scripts file from Github." to console
+		send message "[{@prefixGit}] Please download scripts files from Github manually / semi-automatically" to console
+		enable script {_script}
+		stop
+	delete file "plugins/Skript/scripts/SkriptArchive/-%{_name}%.sk"
+	enable script {_script}
 
+# TODO: 반자동 업데이트 (명령어) 구현
 
