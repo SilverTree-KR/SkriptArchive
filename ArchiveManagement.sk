@@ -7,9 +7,9 @@ options:
 function checkScriptVersion(name: string, version: string) :: boolean:
 	send message "[{@prefixGit}] Checking the versions of the skript from skript archive..." to console
 	set {_text} to text from url "{@url}"
-	set {_splitted::*} to split {_text} by new line
+	set {_splitted::*} to split {_text} by " "
 	loop {_splitted::*}:
-		set {_result::*} to split "%loop-value%" by " : "
+		set {_result::*} to split "%loop-value%" by ":"
 		if {_name} is {_result::1}:
 			if {_version} is {_result::2}:
 				send message "[{@prefixGit}] &a%{_name}% is currently the latest version." to console
