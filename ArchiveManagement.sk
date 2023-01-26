@@ -28,11 +28,11 @@ function updateScript(name: string, version: string):
 	download file from "https://raw.githubusercontent.com/SilverTree-KR/SkriptArchive/main/SkriptArchive/%{_name}%.sk" to file {_file}
 	if file existance of {_file} is false:
 		send message "[{@prefixGit}] Unexpected Error Ocurred while downloading scripts file from Github." to console
-		send message "[{@prefixGit}] Please download scripts files from Github manually / semi-automatically" to console
+		send message "[{@prefixGit}] Please download scripts files from Github manually / semi-automatically." to console
 		enable script {_script}
 		stop
 	delete file "plugins/Skript/scripts/SkriptArchive/-%{_name}%.sk"
 	enable script {_script}
-
+	send message "[{@prefixGit}] Update completed successfully."
 # TODO: 반자동 업데이트 (명령어) 구현
 
