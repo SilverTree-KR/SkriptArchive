@@ -1,0 +1,15 @@
+options:
+    version: 1.0
+    prefixGit: HotTimeEvent
+    prefixInGame: &c&l[ &6&l핫타임 &c&l]
+
+on script load:
+    checkScriptVersion("{@prefixGit}", "{@version}")
+
+command /핫타임 [<string>]:
+    trigger:
+        if player is op:
+            if arg 1 is not set:
+                send message "{@prefixInGame} &f/핫타임 설정" to player
+                send message "{@prefixInGame} &f/핫타임 시작" to player
+                send message "{@prefixInGame} &f "
